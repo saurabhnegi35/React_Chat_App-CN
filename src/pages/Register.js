@@ -35,13 +35,13 @@ const Register = () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             // console.log("File available at", downloadURL);
             await updateProfile(res.user, {
-              displayName,
+              displayName: displayName,
               photoURL: downloadURL,
             });
 
             await setDoc(doc(db, "users", res.user.uid), {
               uid: res.user.uid,
-              displayName,
+              displayName: displayName,
               email,
               photoURL: downloadURL,
             });
