@@ -8,19 +8,26 @@ import { ChatContext } from "../context/ChatContext";
 
 const Chat = () => {
   const { data } = useContext(ChatContext);
-  // console.log("data...............",data);
+
+  // Render the chat component UI
   return (
     <div className="chat">
       <div className="chatInfo">
         <img className="img-profile" src={data.user?.photoURL} alt="" />
         <span>{data.user?.displayName}</span>
+
+        {/* Chat icons */}
         <div className="chatIcons">
           <img src={Camera} alt="" />
           <img src={Add} alt="" />
           <img src={ThreeDot} alt="" />
         </div>
       </div>
+
+      {/* Render chat messages */}
       <Messages />
+
+      {/* Render chat input */}
       <Input />
     </div>
   );
