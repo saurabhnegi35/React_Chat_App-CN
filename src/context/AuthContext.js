@@ -10,14 +10,16 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-    //   console.log(user);
+      // Set the current user state to the user object returned by Firebase
     });
 
+    // Unsubscribe from the onAuthStateChanged listener when the component unmounts
     return () => {
       unsub();
     };
   }, []);
 
+  // Provide the current user object to all child components that consume the AuthContext
   return (
     <AuthContext.Provider value={{ currentUser }}>
       {children}
