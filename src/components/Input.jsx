@@ -30,6 +30,7 @@ const Input = () => {
       uploadTask.on(
         (error) => {
           // handle error here
+          console.log(error);
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
@@ -56,20 +57,20 @@ const Input = () => {
       });
     }
     // update the last message of both user
-    // await updateDoc(doc(db, "userChats", currentUser.uid), {
-    // 	// way to update nested object in db
-    // 	[data.chatId + ".lastMessage"]: { text },
-    // 	[data.chatId + ".date"]: serverTimestamp(),
-    // });
+    await updateDoc(doc(db, "userChats", currentUser.uid), {
+      // way to update nested object in db
+      [data.chatId + ".lastMessage"]: { text },
+      [data.chatId + ".date"]: serverTimestamp(),
+    });
 
-    // await updateDoc(doc(db, "userChats", data.user.uid), {
-    // 	[data.chatId + ".lastMessage"]: { text },
-    // 	[data.chatId + ".date"]: serverTimestamp(),
-    // });
+    await updateDoc(doc(db, "userChats", data.user.uid), {
+      [data.chatId + ".lastMessage"]: { text },
+      [data.chatId + ".date"]: serverTimestamp(),
+    });
 
     // after sending text/img clear the input box
-    // setText("");
-    // setImg(null);
+    setText("");
+    setImg(null);
   };
   return (
     <div className="input">
@@ -77,6 +78,7 @@ const Input = () => {
         type="text"
         placeholder="Type Your Message..."
         onChange={(e) => setText(e.target.value)}
+        value={text}
       />
       <div className="send">
         <img src={Attach} alt="" />
