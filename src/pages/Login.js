@@ -4,9 +4,15 @@ import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 
+// This component represents the Login page of the chat application.
 const Login = () => {
+  // State variables
   const [err, setErr] = useState(false);
+
+  // Hooks
   const navigate = useNavigate();
+
+  // Event handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -20,6 +26,11 @@ const Login = () => {
       setErr(true);
     }
   };
+
+  // The Login component contains a container div with a child form.
+  // The form has three inputs: email, password, and a button to submit the form.
+  // If there is an error, it displays a message.
+  // It also contains a link to the Register page.
 
   return (
     <div className="formContainer">
