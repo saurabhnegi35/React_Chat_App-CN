@@ -15,6 +15,7 @@ import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const Input = () => {
+	// Define state variables
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
   const { currentUser } = useContext(AuthContext);
@@ -22,7 +23,7 @@ const Input = () => {
 
   // handleSend message method
   const handleSend = async () => {
-    // update
+    // if image is selected, upload it to Firebase storage and then update the chat document
     if (img) {
       const storageRef = ref(storage, uuid());
       const uploadTask = uploadBytesResumable(storageRef, img);
@@ -32,6 +33,7 @@ const Input = () => {
           console.log(error);
         },
         () => {
+			// get the download URL of the uploaded image and then update the chat document with this URL
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await updateDoc(doc(db, "chats", data.chatId), {
               message: arrayUnion({
@@ -46,6 +48,7 @@ const Input = () => {
         }
       );
     } else {
+		// if no image is selected, update the chat document with the text message
       await updateDoc(doc(db, "chats", data.chatId), {
         message: arrayUnion({
           id: uuid(),
@@ -55,7 +58,7 @@ const Input = () => {
         }),
       });
     }
-    // update the last message of both user
+    // update the last message of both users in their corresponding userChats documents
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       // way to update nested object in db
       [data.chatId + ".lastMessage"]: { text },
