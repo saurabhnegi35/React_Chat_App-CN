@@ -1,3 +1,4 @@
+# To run this project visit https://reactchatapp35.netlify.com
 # React Chat App
 
 React chat app is a real-time messaging application built using the React JavaScript library. It allows users to chat with each other in real-time through a web interface. Users can send and receive messages, view their chat history. This app is built with a backend server and database to store user information and messages.
